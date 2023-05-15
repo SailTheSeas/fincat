@@ -1,7 +1,7 @@
 // JA - it is good practice to insert comment about intended use, context, contributors, etc
 //This program is intended for use for companies to calculate their financial ratios and categorize them
 //Made by JA with contributions by Suhail Jadwat
-
+#include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -84,7 +84,25 @@ void process_data(char* input_file, char* output_file)
     string catPM, catRoA, catDE;
 
     f_in.open(input_file,ios::in);
-    f_out.open(output_file,ofstream::out);
+
+    //Code to check if input file exists
+    //Output file is only created after input file is validated,
+    //to avoid empty files being made
+    if (!f_in.is_open())
+    {
+        cout << "File doesn't exist";
+        return;
+    }
+    //Attempt to create a file name in the case of no input for one
+    //Doesn't work unfortunately
+    //if (isblank(*output_file))
+    //{
+    //    string out_file_name = "out.txt";
+    //    f_out.open(out_file_name, ofstream::out);
+    //}
+    //else
+        f_out.open(output_file, ofstream::out);
+
     while (!f_in.eof())
     {
     	f_in >> company_id >> revenue_USD >> expenses >> assets >> liabilities;
@@ -99,9 +117,10 @@ void process_data(char* input_file, char* output_file)
         ratio_DE = calcRatioDE(assets, liabilities);
         catDE = categoriseDE(ratio_DE);;
 
-        //Formatting is missing some spaces between outputs
-	    f_out << company_id << " " << ratio_PM << " " << catPM << " " << ratio_RoA << " " << catRoA << " " << ratio_DE << " " << catDE << endl;
+        //Formatting is missing some spaces between outputs, and made numbers more readable in case of long decimals
+	    f_out << fixed << setprecision(3) << company_id << " " << ratio_PM << " " << catPM << " " << ratio_RoA << " " << catRoA << " " << ratio_DE << " " << catDE << endl;
     }
+    
     f_in.close();
     f_out.close();
 }

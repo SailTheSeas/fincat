@@ -1,3 +1,4 @@
+SUHAIL JADWAT
 # Description for Lab Test
 
 This code takes as input a data file with the revenue, expenses, assets and liabilities of companies and computes finalcial ratios and categorization for that company. 
@@ -49,3 +50,4 @@ This opens the file `raw.dat` categorises each company and puts the result in th
 company1 0.4 Healthy 0.08 Average 0.4 Healthy
 company2 0.1 Average 0.05 Unhealthy 2.5 Unhealthy
 ```
+
